@@ -60,10 +60,11 @@ public class BancoServicios {
 
     //private boolean verificadorCliente(){}
     private void altaCliente(Banco banco) {
-    }
-
-    public void imprimirListaClientes(Banco banco) {
-
+        if(banco.getClientes().size()<10){
+//
+        }else{
+            System.out.println("Se ha alcanzado el límite de registros posibles.");
+        }
     }
 
     public void bajaCliente(Banco banco) {
@@ -76,7 +77,8 @@ public class BancoServicios {
         //
         while (it.hasNext()) {
             if (it.next().getNombre().equalsIgnoreCase(nombre)) {
-                System.out.println("Está seguro de que quiere remover a " + it.next().getNombre() + " " + it.next().getApellido() + "? [S/N]");
+                System.out.println("Está seguro de que quiere remover el registro " + nombre +" ? [S/N]");
+                System.out.println(it.toString());
                 String respuesta = String.valueOf(sn.next().toLowerCase().charAt(0));
                 if (respuesta.equals("s")) {
                     controlador++;

@@ -14,9 +14,9 @@ public class ClienteServicios {
         //CREA CLIENTE
         Cliente c = new Cliente();
         System.out.println("Ingresar nombre");
-        c.setNombre(generarNombreYApellido());
+        c.setNombre(validarNombreYApellido());
         System.out.println("Ingresar apellido");
-        c.setApellido(generarNombreYApellido());
+        c.setApellido(validarNombreYApellido());
         System.out.println("Ingresar edad");
         c.setEdad(sn.nextInt());
         //CREA DIRECCION
@@ -43,7 +43,7 @@ public class ClienteServicios {
         return aleatorio;
     }
 
-    private String generarNombreYApellido() {
+    private String validarNombreYApellido() {
         String nombreOApellido = sn.next();
         while (nombreOApellido.trim().equals("")) {
             System.out.println("El campo no puede quedar vacío");
