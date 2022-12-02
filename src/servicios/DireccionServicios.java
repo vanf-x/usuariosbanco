@@ -6,16 +6,27 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class DireccionServicios {
+    private static Scanner sn = new Scanner(System.in).useDelimiter("\n").useLocale(Locale.US);
+
     public Direccion crearDireccion() {
         //public Direccion(String calle, int numero, String localidad)
-        Direccion d = new Direccion();
+        Direccion direccion = new Direccion();
         Scanner sn = new Scanner(System.in).useDelimiter("\n").useLocale(Locale.US);
         System.out.println("Ingresar calle");
-        d.setCalle(sn.next());
+        direccion.setCalle(validarCamposDireccion());
         System.out.println("Ingresar número");
-        d.setNumero(sn.next());
+        direccion.setNumero(validarCamposDireccion());
         System.out.println("Ingresar localidad");
-        d.setLocalidad(sn.next());
-        return d;
+        direccion.setLocalidad(validarCamposDireccion());
+        return direccion;
+    }
+
+    public String validarCamposDireccion() {
+        String valorCampo = sn.next();
+        while (valorCampo.trim().equals("")) {
+            System.out.println("Ingrese una dirección correcta.");
+            valorCampo = sn.nextLine();
+        }
+        return valorCampo;
     }
 }

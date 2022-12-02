@@ -12,30 +12,35 @@ public class ClienteServicios {
 
     public Cliente crearCliente() {
         //CREA CLIENTE
-        Cliente c = new Cliente();
+        Cliente cliente = new Cliente();
         System.out.println("Ingresar nombre");
-        c.setNombre(validarNombreYApellido());
+        cliente.setNombre(validarCamposString());
         System.out.println("Ingresar apellido");
-        c.setApellido(validarNombreYApellido());
+        cliente.setApellido(validarCamposString());
         System.out.println("Ingresar edad");
-        c.setEdad(sn.nextInt());
-        //CREA DIRECCION
-        DireccionServicios ds = new DireccionServicios();
-        Direccion d = ds.crearDireccion();
-        c.setDireccion(d);
-        //
-        System.out.println("Ingresar número de teléfono");
-        c.setTelefono(generarTelefono());
-        System.out.println("Ingresar correo electrónico");
-        c.setCorreo(generarCorreo());
-        System.out.println("Ingresar un nombre de usuario de entre 4 y 10 caracteres");
-        c.setUsuario(generarUsuario());
-        System.out.println("Generando contraseña automáticamente...");
-        c.setContrasena(generarContrasena());
-        System.out.println("La contraseña se ha generado con éxito. La misma ha sido enviada a su correo electrónico " + c.getCorreo() + ".");
-        c.setNumeroTarjeta(generarNumeroTarjeta());
-        System.out.println("Su número de tarjeta es " + c.getNumeroTarjeta() + ". Podrá activarla llamando de 9 a 18 al 0800 666 666 666");
-        return c;
+        cliente.setEdad(sn.nextInt());
+        if(cliente.getEdad()>=18){
+            //CREA DIRECCION
+            DireccionServicios direccionServicios = new DireccionServicios();
+            Direccion direccion = direccionServicios.crearDireccion();
+            cliente.setDireccion(direccion);
+            //
+            System.out.println("Ingresar número de teléfono");
+            cliente.setTelefono(generarTelefono());
+            System.out.println("Ingresar correo electrónico");
+            cliente.setCorreo(generarCorreo());
+            System.out.println("Ingresar un nombre de usuario de entre 4 y 10 caracteres");
+            cliente.setUsuario(generarUsuario());
+            System.out.println("Generando contraseña automáticamente...");
+            cliente.setContrasena(generarContrasena());
+            System.out.println("La contraseña se ha generado con éxito. " +
+                    "La misma ha sido enviada al correo electrónico brindado por el cliente: "
+                    + cliente.getCorreo() + ".");
+            cliente.setNumeroTarjeta(generarNumeroTarjeta());
+            System.out.println("Su número de tarjeta es " + cliente.getNumeroTarjeta() +
+                    ". Podrá activarla llamando de 9 a 18 al 0800 666 666 666");
+        }
+        return cliente;
     }
 
     private int generarAleatorio(int min, int max) {
@@ -43,13 +48,13 @@ public class ClienteServicios {
         return aleatorio;
     }
 
-    private String validarNombreYApellido() {
-        String nombreOApellido = sn.next();
-        while (nombreOApellido.trim().equals("")) {
+    private String validarCamposString() {
+        String valorCampo = sn.next();
+        while (valorCampo.trim().equals("")) {
             System.out.println("El campo no puede quedar vacío");
-            nombreOApellido = sn.next();
+            valorCampo = sn.next();
         }
-        return nombreOApellido;
+        return valorCampo;
     }
 
     private int generarEdad() {
@@ -86,7 +91,7 @@ public class ClienteServicios {
         String correo = sn.next();
         boolean comprobar = false;
         while (!comprobar) {
-            if (correo.contains("@") && correo.contains(".com") && correo.length() > 10) {
+            if (correo.contains("@") && correo.contains(".com") && correo.length() >= 10) {
                 comprobar = true;
             } else {
                 System.out.println("Correo inválido. Por favor ingresar nuevamente.");

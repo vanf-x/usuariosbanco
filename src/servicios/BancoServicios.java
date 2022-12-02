@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 public class BancoServicios {
     private static Scanner sn = new Scanner(System.in);
+    private static final int MAX_CLIENTES = 10;
 
     public Banco crearBanco() {
         return new Banco("Banco Santander",
@@ -22,7 +23,6 @@ public class BancoServicios {
         boolean controladorReceptor = false;
         int monto = 0;
         //
-        System.out.println("===TRANSFERENCIA===");
         System.out.println("Ingresar el nombre de la persona que va a ENVIAR la transferencia:");
         String nombre = sn.next();
         //
@@ -58,11 +58,17 @@ public class BancoServicios {
         }
     }
 
-    //private boolean verificadorCliente(){}
     private void altaCliente(Banco banco) {
-        if(banco.getClientes().size()<10){
-//
-        }else{
+        if (banco.getClientes().size() < MAX_CLIENTES) {
+            ClienteServicios clienteServicios = new ClienteServicios();
+            Cliente cliente = clienteServicios.crearCliente();
+            if(cliente.getEdad()>=18){
+                banco.getClientes().add(cliente);
+                System.out.println("Alta cliente realizada con éxito.");
+            }else{
+                System.out.println("El cliente no cumple con el requisito mínimo de edad.");
+            }
+        } else {
             System.out.println("Se ha alcanzado el límite de registros posibles.");
         }
     }
@@ -71,13 +77,12 @@ public class BancoServicios {
         int controlador = 0;
         String nombre;
         Iterator<Cliente> it = banco.getClientes().iterator();
-        System.out.println("===MENU DE BAJAS===");
         System.out.println("Ingrese el NOMBRE del cliente a dar de baja:");
         nombre = sn.next();
         //
         while (it.hasNext()) {
             if (it.next().getNombre().equalsIgnoreCase(nombre)) {
-                System.out.println("Está seguro de que quiere remover el registro " + nombre +" ? [S/N]");
+                System.out.println("Está seguro de que quiere remover el registro " + nombre + " ? [S/N]");
                 System.out.println(it.toString());
                 String respuesta = String.valueOf(sn.next().toLowerCase().charAt(0));
                 if (respuesta.equals("s")) {
@@ -99,22 +104,31 @@ public class BancoServicios {
         int respuesta = sn.nextInt();
         switch (respuesta) {
             case 1:
+                System.out.println("===ALTA CLIENTE===");
+                altaCliente(banco);
+                System.out.println("======================================================");
                 menu(banco);
                 break;
             case 2:
+                System.out.println("===BAJA CLIENTE===");
                 bajaCliente(banco);
+                System.out.println("======================================================");
                 menu(banco);
                 break;
             case 3:
+                System.out.println("===TRANSFERENCIA DE FONDOS===");
                 transferenciaDeFondos(banco);
+                System.out.println("======================================================");
                 menu(banco);
                 break;
             case 4:
+                System.out.println("===LISTADO DE CLIENTES===");
                 System.out.println(banco.getClientes());
+                System.out.println("======================================================");
                 menu(banco);
                 break;
             default:
-                System.out.println("Saliendo del programa");
+                System.out.println("********Saliendo del programa********");
         }
     }
 }

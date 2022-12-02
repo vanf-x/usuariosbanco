@@ -29,14 +29,10 @@ public class Main {
         ArrayList<Cliente> clientes = new ArrayList<>();
         String[] nombres = {"Ignacio", "Nicolas", "Mariana", "Romina",
                 "Alejandra", "Juan", "Nahuel", "Santiago", "Gonzalo"};
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < nombres.length; i++) {
             Cliente cliente = new Cliente(nombres[i], 1000);
             clientes.add(cliente);
         }
         return clientes;
     }
 }
-/*
- * u > 18 para abrir cuenta
- * fecha
- * */
