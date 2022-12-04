@@ -2,12 +2,13 @@ package servicios;
 
 import entidades.Cliente;
 import entidades.Direccion;
+import interfaces.ControlCaracteres;
 
 import java.util.InputMismatchException;
 import java.util.Locale;
 import java.util.Scanner;
 
-public class ClienteServicios {
+public class ClienteServicios implements ControlCaracteres {
     static Scanner sn = new Scanner(System.in).useDelimiter("\n").useLocale(Locale.US);
 
     public Cliente crearCliente() {
@@ -19,7 +20,7 @@ public class ClienteServicios {
         cliente.setApellido(validarCamposString());
         System.out.println("Ingresar edad");
         cliente.setEdad(generarEdad());
-        if(cliente.getEdad()>=18){
+        if (cliente.getEdad() >= 18) {
             //CREA DIRECCION
             DireccionServicios direccionServicios = new DireccionServicios();
             Direccion direccion = direccionServicios.crearDireccion();
@@ -37,8 +38,7 @@ public class ClienteServicios {
                     "La misma ha sido enviada al correo electrónico brindado por el cliente: "
                     + cliente.getCorreo() + ".");
             cliente.setNumeroTarjeta(generarNumeroTarjeta());
-            System.out.println("Su número de tarjeta es " + cliente.getNumeroTarjeta() +
-                    ". Podrá activarla llamando de 9 a 18 al 0800 666 666 666.");
+            System.out.println("Número de tarjeta generado por el sistema: " + cliente.getNumeroTarjeta());
         }
         return cliente;
     }
@@ -49,7 +49,7 @@ public class ClienteServicios {
     }
 
     private String validarCamposString() {
-        String valorCampo = sn.next();
+        String valorCampo = controlCaracteres();
         while (valorCampo.trim().equals("")) {
             System.out.println("El campo no puede quedar vacío");
             valorCampo = sn.next();
@@ -57,16 +57,16 @@ public class ClienteServicios {
         return valorCampo;
     }
 
-    private int generarEdad() throws InputMismatchException{
+    private int generarEdad() throws InputMismatchException {
         int edad = 0;
-        do{
-            try{
+        do {
+            try {
                 edad = sn.nextInt();
-            }catch(java.util.InputMismatchException e){
+            } catch (java.util.InputMismatchException e) {
                 System.out.println("Ha ingresado una edad incorrecta. Ingresar nuevamente.");
             }
             sn = new Scanner(System.in);
-        }while(edad==0);
+        } while (edad == 0);
         return edad;
     }
 
@@ -129,4 +129,27 @@ public class ClienteServicios {
         }
         return numeroTarjeta;
     }
+
+/*    public String controlCaracteres() {
+        String nombre;
+        int cantidadCaracteresIncorrectos;
+        boolean control = false;
+        char caracter;
+        do{
+            cantidadCaracteresIncorrectos = 0;
+            nombre = sn.next();
+            for (int i = 0; i < nombre.length(); i++) {
+                caracter = nombre.charAt(i);
+                if (!(caracter >= 65 && caracter <= 90) && !(caracter >= 97 && caracter <= 122)) {
+                    cantidadCaracteresIncorrectos++;
+                }
+            }
+            if (cantidadCaracteresIncorrectos == 0) {
+                control = true;
+            } else {
+                System.out.println("Nombre incorrecto. Inténtelo nuevamente.");
+            }
+        }while(!control);
+        return nombre;
+    }*/
 }

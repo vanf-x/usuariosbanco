@@ -3,12 +3,13 @@ package servicios;
 import entidades.Banco;
 import entidades.Cliente;
 import entidades.Direccion;
+import interfaces.ControlCaracteres;
 
 import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
 
-public class BancoServicios {
+public class BancoServicios implements ControlCaracteres {
     private static Scanner sn = new Scanner(System.in).useDelimiter("\n");
     private static final int MAX_CLIENTES = 10;
 
@@ -26,7 +27,7 @@ public class BancoServicios {
             System.out.println("Ingresar el nombre de la persona que va a RECIBIR la transferencia:");
         }
         do {
-            nombre = sn.next();
+            nombre = controlCaracteres();
             if (nombre.trim().equals("")) System.out.println("El campo no puede quedar vacío.");
         } while (nombre.trim().equals(""));
         for (Cliente aux : banco.getClientes()) {
@@ -148,7 +149,7 @@ public class BancoServicios {
         Iterator<Cliente> it = banco.getClientes().iterator();
         System.out.println("Ingrese el NOMBRE del cliente a dar de baja:");
         do {
-            nombre = sn.next();
+            nombre = controlCaracteres();
             if (nombre.trim().equals("")) System.out.println("El campo no puede quedar vacío.");
         } while (nombre.trim().equals(""));
         //
