@@ -57,7 +57,7 @@ public class ClienteServicios implements ControlCaracteres {
         return valorCampo;
     }
 
-    private int generarEdad() throws InputMismatchException {
+    private int generarEdad() {
         int edad = 0;
         do {
             try {
@@ -130,26 +130,4 @@ public class ClienteServicios implements ControlCaracteres {
         return numeroTarjeta;
     }
 
-/*    public String controlCaracteres() {
-        String nombre;
-        int cantidadCaracteresIncorrectos;
-        boolean control = false;
-        char caracter;
-        do{
-            cantidadCaracteresIncorrectos = 0;
-            nombre = sn.next();
-            for (int i = 0; i < nombre.length(); i++) {
-                caracter = nombre.charAt(i);
-                if (!(caracter >= 65 && caracter <= 90) && !(caracter >= 97 && caracter <= 122)) {
-                    cantidadCaracteresIncorrectos++;
-                }
-            }
-            if (cantidadCaracteresIncorrectos == 0) {
-                control = true;
-            } else {
-                System.out.println("Nombre incorrecto. Inténtelo nuevamente.");
-            }
-        }while(!control);
-        return nombre;
-    }*/
 }

@@ -76,57 +76,6 @@ public class BancoServicios implements ControlCaracteres {
             System.out.println("Hubo un error con los nombres de los clientes. Inténtelo nuevamente.");
         }
     }
-/*    public void procesoTransferenciaDeFondos(Banco banco) {
-        Cliente emisor = new Cliente();
-        Cliente receptor = new Cliente();
-        boolean controladorEmisor = false;
-        boolean controladorReceptor = false;
-        boolean verificadorTransferencia = false;
-        int monto = 0;
-        //
-        System.out.println("Ingresar el nombre de la persona que va a ENVIAR la transferencia:");
-        String nombre = sn.next();
-        //
-        for (Cliente aux : banco.getClientes()) {
-            if (aux.getNombre().equalsIgnoreCase(nombre)) {
-                emisor = aux;
-                controladorEmisor = true;
-            }
-        }
-        //
-        System.out.println("Ingresar el nombre de la persona que va a RECIBIR la transferencia:");
-        nombre = sn.next();
-        for (Cliente aux : banco.getClientes()) {
-            if (aux.getNombre().equalsIgnoreCase(nombre)) {
-                receptor = aux;
-                controladorReceptor = true;
-            }
-        }
-        if (controladorEmisor && controladorReceptor) {
-            System.out.println("Ingresar el monto a transferir: ");
-            do {
-                try {
-                    monto = sn.nextInt();
-                    if (emisor.getSaldo() >= monto) {
-                        emisor.setSaldo(emisor.getSaldo() - monto);
-                        receptor.setSaldo(receptor.getSaldo() + monto);
-                        System.out.println("Monto transferido: $" + monto);
-                        System.out.println("Saldo EMISOR: $" + emisor.getSaldo());
-                        System.out.println("Saldo RECEPTOR: $" + receptor.getSaldo());
-                        verificadorTransferencia = true;
-                    } else {
-                        System.out.println("El monto ingresado es incorrecto. Inténtelo nuevamente.");
-                    }
-                } catch (InputMismatchException e) {
-                    System.out.println("El monto ingresado es incorrecto. Inténtelo nuevamente.");
-                    sn = new Scanner(System.in);
-                }
-            } while (!verificadorTransferencia);
-
-        } else {
-            System.out.println("Hubo un error con los nombres de los clientes. Inténtelo nuevamente.");
-        }
-    }*/
 
     private void altaCliente(Banco banco) {
         if (banco.getClientes().size() < MAX_CLIENTES) {

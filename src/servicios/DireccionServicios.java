@@ -22,11 +22,11 @@ public class DireccionServicios {
     }
 
     public String validarCamposDireccion() {
-        String valorCampo = sn.next();
-        while (valorCampo.trim().equals("")) {
-            System.out.println("El campo no puede quedar vacío.");
+        String valorCampo;
+        do {
             valorCampo = sn.next();
-        }
+            if (valorCampo.trim().equals("")) System.out.println("El campo no puede quedar vacío.");
+        } while (valorCampo.trim().equals(""));
         return valorCampo;
     }
 }
