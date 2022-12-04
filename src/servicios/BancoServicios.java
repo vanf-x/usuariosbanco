@@ -17,7 +17,65 @@ public class BancoServicios {
                 new Direccion("Av. Corrientes", "2572", "CABA"));
     }
 
+    public Cliente obtenerEmisorYReceptor(Banco banco, String rol) {
+        String nombre;
+        Cliente cliente = new Cliente();
+        if (rol.equals("emisor")) {
+            System.out.println("Ingresar el nombre de la persona que va a ENVIAR la transferencia:");
+        } else {
+            System.out.println("Ingresar el nombre de la persona que va a RECIBIR la transferencia:");
+        }
+        do {
+            nombre = sn.next();
+            if (nombre.trim().equals("")) System.out.println("El campo no puede quedar vacío.");
+        } while (nombre.trim().equals(""));
+        for (Cliente aux : banco.getClientes()) {
+            if (aux.getNombre().equalsIgnoreCase(nombre)) {
+                cliente = aux;
+                return cliente;
+            }
+        }
+        return cliente;
+    }
+
+    public void intentarTransferencia(Cliente emisor, Cliente receptor) {
+        int monto = 0;
+        boolean verificadorTransferencia = false;
+        //
+        System.out.println("Ingresar el monto a transferir: ");
+        do {
+            try {
+                monto = sn.nextInt();
+                if (emisor.getSaldo() >= monto) {
+                    emisor.setSaldo(emisor.getSaldo() - monto);
+                    receptor.setSaldo(receptor.getSaldo() + monto);
+                    System.out.println("TRANSFERENCIA REALIZADA CON ÉXITO" +
+                            "\nMonto transferido: $" + monto +
+                            "\nSaldo EMISOR: $" + emisor.getSaldo() +
+                            "\nSaldo RECEPTOR: $" + receptor.getSaldo());
+                    verificadorTransferencia = true;
+                } else {
+                    System.out.println("El monto ingresado es incorrecto. Inténtelo nuevamente.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("El monto ingresado es incorrecto. Inténtelo nuevamente.");
+                sn = new Scanner(System.in);
+            }
+        } while (!verificadorTransferencia);
+
+    }
+
     public void procesoTransferenciaDeFondos(Banco banco) {
+        Cliente emisor = obtenerEmisorYReceptor(banco, "emisor");
+        Cliente receptor = obtenerEmisorYReceptor(banco, "receptor");
+        //
+        if (emisor.getNombre() != null && receptor.getNombre() != null) {
+            intentarTransferencia(emisor, receptor);
+        } else {
+            System.out.println("Hubo un error con los nombres de los clientes. Inténtelo nuevamente.");
+        }
+    }
+/*    public void procesoTransferenciaDeFondos(Banco banco) {
         Cliente emisor = new Cliente();
         Cliente receptor = new Cliente();
         boolean controladorEmisor = false;
@@ -67,7 +125,7 @@ public class BancoServicios {
         } else {
             System.out.println("Hubo un error con los nombres de los clientes. Inténtelo nuevamente.");
         }
-    }
+    }*/
 
     private void altaCliente(Banco banco) {
         if (banco.getClientes().size() < MAX_CLIENTES) {
@@ -96,10 +154,10 @@ public class BancoServicios {
         //
         while (it.hasNext()) {
             if (it.next().getNombre().equalsIgnoreCase(nombre)) {
+                controlador++;
                 System.out.println("Está seguro de que quiere remover el registro " + nombre + " ? [S/N]");
                 String respuesta = String.valueOf(sn.next().toLowerCase().charAt(0));
                 if (respuesta.equals("s")) {
-                    controlador++;
                     it.remove();
                     System.out.println("Baja realizada con éxito.");
                 } else {
