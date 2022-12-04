@@ -18,7 +18,7 @@ public class ClienteServicios {
         System.out.println("Ingresar apellido");
         cliente.setApellido(validarCamposString());
         System.out.println("Ingresar edad");
-        cliente.setEdad(sn.nextInt());
+        cliente.setEdad(generarEdad());
         if(cliente.getEdad()>=18){
             //CREA DIRECCION
             DireccionServicios direccionServicios = new DireccionServicios();
@@ -38,7 +38,7 @@ public class ClienteServicios {
                     + cliente.getCorreo() + ".");
             cliente.setNumeroTarjeta(generarNumeroTarjeta());
             System.out.println("Su número de tarjeta es " + cliente.getNumeroTarjeta() +
-                    ". Podrá activarla llamando de 9 a 18 al 0800 666 666 666");
+                    ". Podrá activarla llamando de 9 a 18 al 0800 666 666 666.");
         }
         return cliente;
     }
@@ -57,18 +57,16 @@ public class ClienteServicios {
         return valorCampo;
     }
 
-    private int generarEdad() {
+    private int generarEdad() throws InputMismatchException{
         int edad = 0;
-        boolean validador = false;
-        while (!validador) {
-            try {
+        do{
+            try{
                 edad = sn.nextInt();
-                validador = true;
-            } catch (InputMismatchException e) {
+            }catch(java.util.InputMismatchException e){
                 System.out.println("Ha ingresado una edad incorrecta. Ingresar nuevamente.");
-                sn.nextLine();
             }
-        }
+            sn = new Scanner(System.in);
+        }while(edad==0);
         return edad;
     }
 

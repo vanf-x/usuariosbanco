@@ -24,8 +24,8 @@ public class DireccionServicios {
     public String validarCamposDireccion() {
         String valorCampo = sn.next();
         while (valorCampo.trim().equals("")) {
-            System.out.println("Ingrese una dirección correcta.");
-            valorCampo = sn.nextLine();
+            System.out.println("El campo no puede quedar vacío.");
+            valorCampo = sn.next();
         }
         return valorCampo;
     }

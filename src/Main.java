@@ -18,11 +18,7 @@ public class Main {
         BancoServicios bancoServicios = new BancoServicios();
         Banco bancoSantander = bancoServicios.crearBanco();
         bancoSantander.setClientes(clientesBanco);
-        try{
             bancoServicios.menu(bancoSantander);
-        }catch(InputMismatchException e){
-            System.out.println("Error de caracter inesperado al ingresar datos");
-        }
     }
 
     public static ArrayList<Cliente> autogenerarArrayListDeClientes() {
